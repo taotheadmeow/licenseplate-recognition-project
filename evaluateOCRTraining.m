@@ -60,10 +60,10 @@
 %  imageBatchProcessor
 %
 % See also ocr, ocrTrainer, ocrText
-function [ocrI, results] = evaluateOCRTraining(I, roi)
+function [ocrI, results] = evaluateOCRTraining(I)
 
 % Location of trained OCR language data
-trainedLanguage = 'D:\Projects\license-plate-recognition\ThaiLang\tessdata\ThaiLang.traineddata';
+trainedLanguage = 'myLang\tessdata\myLang.traineddata';
 
 % Run OCR using trained language. You may need to modify OCR parameters or
 % pre-process your test images for optimal results. Also, consider
