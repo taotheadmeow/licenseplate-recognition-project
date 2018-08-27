@@ -27,12 +27,13 @@ def licenseplateOCR(image, skSVMclassifier, getRectangles=False):
             text[0] += c[0]
         #cv2.putText(im,c[0],(rects[i][0],rects[i][1]), font, 1,(0,255,255),2,cv2.LINE_AA)
     if getRectangles:
-        return (text[0], text[1], rects)
+        return (text[0], text[1], im)
     else:
         return (text[0], text[1])
 
 clf = pickle.load(open('OCRModel.pkl','rb'))
-im = cv2.imread('F:\\ALPR\\DATASET\\Test\\p0001.JPG')
-licenseplateOCR(im, clf)
-print()
-cv2.putText(im,c[0],(rects[i][0],rects[i][1]), font, 1,(0,255,255),2,cv2.LINE_AA)
+im = cv2.imread('F:\\ALPR\\DATASET\\Test\\p0002.JPG')
+t1, t2, im = licenseplateOCR(im, clf, True)
+t = t1+","+t2
+print(t)
+cv2.imshow('w', im)
