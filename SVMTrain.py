@@ -39,6 +39,9 @@ for f in os.listdir("..\\DATASET\\CHAR\\labeled"):
                 trainData.append(img)
         if count % 100 == 0:
             print("%.2f percent read." % (count/filesNum*100))
+
+rootDir = "F:\\ALPR\\DATASET\\Thai"
+count = 0
 print("%d errors!" % err)
 print('Images added to training set!')
 trainData = np.array(trainData)
@@ -50,3 +53,4 @@ clf = LinearSVC()
 clf.fit(d2_train_dataset, labels)
 print('Trained')
 pickle.dump(clf, open('OCRModel2.pkl','wb'))
+print('Model saved as file!')

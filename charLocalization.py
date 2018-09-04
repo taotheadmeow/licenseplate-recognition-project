@@ -10,10 +10,12 @@ def findChar(img, show=False, returnResult=False):
     """
     if img.shape[2] > 1:
         img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    ret3,img = cv2.threshold(img,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+    #ret3,img = cv2.threshold(img,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+    img = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
+            cv2.THRESH_BINARY,11,2)
     img = cv2.bitwise_not(img)
     im_width, im_height = img.shape
-    im_size = im_width*im_height
+    im_size = img.size
     im2, contours, hierarchy = cv2.findContours(img,cv2.RETR_TREE,cv2.cv2.CHAIN_APPROX_NONE)
     rects = [cv2.boundingRect(ctr) for ctr in contours]
     #print (im_size)
@@ -21,7 +23,7 @@ def findChar(img, show=False, returnResult=False):
     charsLocation = []
     for rect in rects:
         # Draw the rectangles
-        if rect[2]/rect[3] < 3 and rect[2]/rect[3] > 0.25 and rect[2]*rect[3] > im_size*0.001 and rect[2]*rect[3] < im_size*0.1:
+        if rect[2]/rect[3] < 3 and rect[2]/rect[3] > 0.25 and rect[2]*rect[3] > img.size*0.002 and rect[2]*rect[3] < img.size*0.1:
             if show or returnResult:
                 cv2.rectangle(im2, (rect[0], rect[1]), (rect[0] + rect[2],\
                                                    rect[1] + rect[3]), (0, 255, 0), 1)
